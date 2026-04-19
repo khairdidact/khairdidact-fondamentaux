@@ -63,6 +63,47 @@
     margin: 1.25rem auto 0;
   }
 
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .btn-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--sage);
+    color: #fff;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(26, 26, 46, 0.15);
+  }
+
+  .btn-print:hover {
+    background: #2d523c;
+  }
+
+  .btn-print:active {
+    transform: translateY(1px);
+  }
+
+  .btn-print svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
   figure.infographie {
     margin: 0;
     padding: 0;
@@ -89,6 +130,64 @@
   @media (max-width: 600px) {
     .wrapper { padding: 1.5rem 1rem 2rem; }
   }
+
+  /* ===== Impression ===== */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+    }
+
+    html, body {
+      background: #fff;
+      color: #000;
+    }
+
+    .wrapper {
+      max-width: none;
+      padding: 0;
+    }
+
+    .actions,
+    .btn-print {
+      display: none !important;
+    }
+
+    header.page-header {
+      margin-bottom: 0.5rem;
+    }
+
+    header.page-header h1 {
+      font-size: 24pt;
+      color: var(--sage);
+    }
+
+    header.page-header p.subtitle {
+      font-size: 11pt;
+    }
+
+    .divider {
+      margin: 0.5rem auto;
+    }
+
+    figure.infographie {
+      box-shadow: none;
+      border-radius: 0;
+      page-break-inside: avoid;
+    }
+
+    figure.infographie img {
+      max-height: 240mm;
+      width: auto;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    figcaption {
+      font-size: 9pt;
+      margin-top: 0.25rem;
+    }
+  }
 </style>
 </head>
 <body>
@@ -102,6 +201,17 @@
     </p>
     <hr class="divider">
   </header>
+
+  <div class="actions">
+    <button type="button" class="btn-print" onclick="window.print()" aria-label="Imprimer l'affiche">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+      Imprimer l'affiche
+    </button>
+  </div>
 
   <figure class="infographie">
     <img
